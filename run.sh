@@ -1,15 +1,14 @@
 #!/bin/bash
-if [ "x$BASH_VERSION" = "x" -a "x$INSTALLER_LOOP_BASH" = "x" ]; then
-    if [ -x /bin/bash ]; then
-        export INSTALLER_LOOP_BASH=1
-        exec /bin/bash -- $0 $*
-    else
-        echo "bash must be installed at /bin/bash before proceeding!"
-        exit 1
-    fi
-fi
-sudo su ec2-user
-cd ~ || exit
+#if [ "x$BASH_VERSION" = "x" -a "x$INSTALLER_LOOP_BASH" = "x" ]; then
+#    if [ -x /bin/bash ]; then
+#        export INSTALLER_LOOP_BASH=1
+#        exec /bin/bash -- $0 $*
+#    else
+#        echo "bash must be installed at /bin/bash before proceeding!"
+#        exit 1
+#    fi
+#fi
+cd /home/ec2-user || exit
 sudo yum upgrade -y
 sudo yum -y groupinstall "Development Tools"
 sudo yum -y install openssl-devel bzip2-devel libffi-devel
@@ -18,7 +17,8 @@ tar xvf Python-3.9.16.tgz
 cd Python-3.9.16 || exit
 ./configure --enable-optimizations
 sudo make altinstall
-sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' ~/.bash_profile
+sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' /root/.bash_profile
+sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' /home/ec2-user/.bash_profile
 source ~/.bash_profile
 /usr/local/bin/python3.9 -m pip install --upgrade pip
 git clone https://github.com/sinanartun/binance_4.git
