@@ -1,0 +1,1 @@
+su ec2-user && cd /home/ec2-user && curl -o run -L https://raw.githubusercontent.com/sinanartun/binance_4/main/run.sh && sh run

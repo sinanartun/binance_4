@@ -1,5 +1,4 @@
 #!/bin/bash
-sudo yum upgrade -y
 ROLE_NAME=$(curl http://169.254.169.254/latest/meta-data/iam/security-credentials/) && \
 TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && \
 curl -H "X-aws-ec2-metadata-token: $TOKEN" -v "http://169.254.169.254/latest/meta-data/iam/security-credentials/$ROLE_NAME"
