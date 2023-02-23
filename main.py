@@ -8,7 +8,7 @@ from binance import AsyncClient, BinanceSocketManager
 import get_credentials
 
 
-def upload_file_to_s3(local_file_path, remote_file_path, s3_bucket_name='awsbc4hello'):
+def upload_file_to_s3(local_file_path, remote_file_path):
     credentials = get_credentials.get()
     s3 = boto3.client(
         's3',

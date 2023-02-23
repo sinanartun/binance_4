@@ -8,6 +8,8 @@ if [ "x$BASH_VERSION" = "x" -a "x$INSTALLER_LOOP_BASH" = "x" ]; then
         exit 1
     fi
 fi
+sudo su ec2-user
+cd ~ || exit
 sudo yum upgrade -y
 sudo yum -y groupinstall "Development Tools"
 sudo yum -y install openssl-devel bzip2-devel libffi-devel
@@ -19,8 +21,6 @@ sudo make altinstall
 sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' ~/.bash_profile
 source ~/.bash_profile
 /usr/local/bin/python3.9 -m pip install --upgrade pip
-cd ~ || exit
-sudo yum install git -y
 git clone https://github.com/sinanartun/binance_4.git
 cd binance_4 || exit
 python3.9 -m venv venv
