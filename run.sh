@@ -17,3 +17,18 @@ git clone https://github.com/sinanartun/binance_4.git
 cd binance_4 || exit
 python3.9 -m venv venv
 pip3.9 install -r requirements.txt
+sudo tee /etc/systemd/system/binance.service << EOF
+[Unit]
+Description=Binance Service
+
+[Service]
+User=ec2-user
+ExecStart=/usr/local/bin/python3.9 /home/ec2-user/binance_4/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable binance
+sudo systemctl start binance
