@@ -1,13 +1,13 @@
 #!/bin/bash
-#if [ "x$BASH_VERSION" = "x" -a "x$INSTALLER_LOOP_BASH" = "x" ]; then
-#    if [ -x /bin/bash ]; then
-#        export INSTALLER_LOOP_BASH=1
-#        exec /bin/bash -- $0 $*
-#    else
-#        echo "bash must be installed at /bin/bash before proceeding!"
-#        exit 1
-#    fi
-#fi
+if [ "x$BASH_VERSION" = "x" -a "x$INSTALLER_LOOP_BASH" = "x" ]; then
+    if [ -x /bin/bash ]; then
+        export INSTALLER_LOOP_BASH=1
+        exec /bin/bash -- $0 $*
+    else
+        echo "bash must be installed at /bin/bash before proceeding!"
+        exit 1
+    fi
+fi
 cd /home/ec2-user || exit
 sudo yum upgrade -y
 sudo yum -y groupinstall "Development Tools"
