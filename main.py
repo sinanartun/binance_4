@@ -38,7 +38,7 @@ def upload_file_to_s3(local_file_path, remote_file_path, s3_bucket_name='awsbc4h
         f.close()
 
     with open(local_file_path, "rb") as f:
-        s3.upload_fileobj(local_file_path, bucket_name, remote_file_path)
+        s3.upload_fileobj(f, bucket_name, remote_file_path)
 
 
 async def main():
