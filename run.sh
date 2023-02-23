@@ -19,7 +19,7 @@ cd Python-3.9.16 || exit
 sudo make altinstall
 sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' /root/.bash_profile
 sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' /home/ec2-user/.bash_profile
-source /home/ec2-user/.bash_profile
+source ~/.bash_profile
 /usr/local/bin/python3.9 -m pip install --upgrade pip
 cd /home/ec2-user || exit
 git clone https://github.com/sinanartun/binance_4.git
@@ -33,7 +33,7 @@ sudo tee /etc/systemd/system/binance.service << EOF
 Description=Binance Service
 
 [Service]
-User=ec2-user
+User=root
 ExecStart=/usr/local/bin/python3.9 /home/ec2-user/binance_4/main.py
 Restart=always
 
