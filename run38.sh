@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /home/ec2-user || exit
 sudo yum update -y
+sudo yum install htop -y
 sudo amazon-linux-extras install epel -y
 sudo amazon-linux-extras install python3.8 -y
 sudo yum install git -y
@@ -10,7 +11,7 @@ sudo chown -R ec2-user:ec2-user /home/ec2-user/binance_4
 sudo chmod 2775 /home/ec2-user/binance_4 && find /home/ec2-user/binance_4 -type d -exec sudo chmod 2775 {} \;
 cd binance_4 || exit
 python3.8 -m venv venv
-sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' /root/.bash_profile
+sudo sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' /root/.bash_profile
 sed -i 's/^PATH=.*/&:\/usr\/local\/bin/' /home/ec2-user/.bash_profile
 source ~/.bash_profile
 pip3.8 install -r requirements.txt
