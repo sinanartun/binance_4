@@ -93,7 +93,7 @@ async def main():
             line += str(maker) + '\n'
             f.write(line)
             # Line oluşturuldu
-            # print(line)
+            print(line)
             # print(res)
 
     await client.close_connection()
