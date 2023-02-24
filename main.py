@@ -8,7 +8,7 @@ from binance import AsyncClient, BinanceSocketManager
 import get_credentials
 
 
-def upload_file_to_s3(local_file_path, remote_file_path, s3_bucket_name='awsbc4hello'):
+def upload_file_to_s3(local_file_path, remote_file_path):
     credentials = get_credentials.get()
     s3 = boto3.client(
         's3',
@@ -16,7 +16,8 @@ def upload_file_to_s3(local_file_path, remote_file_path, s3_bucket_name='awsbc4h
         aws_secret_access_key=credentials['SecretAccessKey'],
         aws_session_token=credentials['Token']
     )
-    bucket_name_file = os.path.join(os.getcwd(), "bucket_name")
+
+    bucket_name_file = '/home/ec2-user/binance_4/bucket_name'
     if os.path.exists(bucket_name_file):
         with open(bucket_name_file, "r") as f:
             bucket_name = f.read()
@@ -44,9 +45,7 @@ def upload_file_to_s3(local_file_path, remote_file_path, s3_bucket_name='awsbc4h
 async def main():
     active_file_time = int(round(time.time()) / 60)
 
-    local_data_file_path = 'data/' + str(int(active_file_time * 60)) + '.tsv'
-
-    new_local_data_file_path = os.path.join(os.getcwd(), local_data_file_path)
+    new_local_data_file_path = '/home/ec2-user/binance_4/data/' + str(int(active_file_time * 60)) + '.tsv'
 
     f = open(new_local_data_file_path, 'w')
     client = await AsyncClient.create()
@@ -64,13 +63,13 @@ async def main():
                 # Eğer mesajın içindeki Unix dakikası active_file_time'a eşit değil ise 1dk'lık biriktirme süresi,
                 # dolmuş ve biriktirilen datanın bucket'a yüklenmesi gerekli.
 
-                local_data_file_path = os.path.join(os.getcwd(), 'data/' + str(active_file_time * 60) + '.tsv')
-                remote_data_file_path = os.path.join(os.getcwd(), 'data_1_min/' + str(active_file_time * 60) + '.tsv')
+                local_data_file_path = '/home/ec2-user/binance_4/data/' + str(active_file_time * 60) + '.tsv'
+                remote_data_file_path = '/home/ec2-user/binance_4/data_1_min/' + str(active_file_time * 60) + '.tsv'
 
                 upload_file_to_s3(local_data_file_path, remote_data_file_path)
                 # Bir dakikalık datası dolmuş olan local_data_file'ı, Bucket'a yüklüyoruz.
                 active_file_time = new_file_time
-                new_local_data_file_path = os.path.join(os.getcwd(), 'data/' + str(int(active_file_time * 60)) + '.tsv')
+                new_local_data_file_path = '/home/ec2-user/binance_4/data/' + str(int(active_file_time * 60)) + '.tsv'
 
                 f = open(new_local_data_file_path, 'w')
                 print(' #' * 50)
