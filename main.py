@@ -65,12 +65,12 @@ async def main():
                 # dolmuş ve biriktirilen datanın bucket'a yüklenmesi gerekli.
 
                 local_data_file_path = os.path.join(os.getcwd(), 'data/' + str(active_file_time * 60) + '.tsv')
-                remote_data_file_path = os.path.join(os.getcwd(),'data_1_min/' + str(active_file_time * 60) + '.tsv')
+                remote_data_file_path = os.path.join(os.getcwd(), 'data_1_min/' + str(active_file_time * 60) + '.tsv')
 
                 upload_file_to_s3(local_data_file_path, remote_data_file_path)
                 # Bir dakikalık datası dolmuş olan local_data_file'ı, Bucket'a yüklüyoruz.
                 active_file_time = new_file_time
-                new_local_data_file_path = os.path.join(os.getcwd(),'data/' + str(int(active_file_time * 60)) + '.tsv')
+                new_local_data_file_path = os.path.join(os.getcwd(), 'data/' + str(int(active_file_time * 60)) + '.tsv')
 
                 f = open(new_local_data_file_path, 'w')
                 print(' #' * 50)
